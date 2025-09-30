@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Happy Trails – Game</title>
+	<style>
+		html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+		iframe { border: none; width: 100%; height: 100%; }
+	</style>
+</head>
+<body>
+	<iframe id="gameFrame" src="game/index.html"></iframe>
+
+	<script>
+		// Listen for Godot's gameClosed message from inside the iframe
+		window.addEventListener("message", function(event) {
+			if (event.data && event.data.type === "gameClosed") {
+				console.log("Game requested close.");
+
+				// Tell the opener to refresh if it exists
+				if (window.opener && !window.opener.closed) {
+					window.opener.postMessage({ type: "gameClosed" }, "*");
+				}
+
+				// Close this popup
+				window.close();
+			}
+		});
+	</script>
+</body>
+</html>
