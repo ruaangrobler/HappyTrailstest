@@ -267,15 +267,26 @@
 		if (event.data && event.data.type === "gameClosed") {
 			console.log("Game signaled close event");
 
-			// Example 1: redirect back to homepage
-			window.location.href = "/";
+			// Case 1: this page *is* the popup window (has an opener)
+			if (window.opener && !window.opener.closed) {
+				// Tell the parent to refresh to homepage
+				window.opener.location.href = "https://ruaangrobler.github.io/HappyTrailstest/";
+				// Close this popup
+				window.close();
+				return;
+			}
 
-			// Example 2 (if the game is in an iframe with id="gameFrame"):
-			// document.getElementById("gameFrame").style.display = "none";
-			// document.getElementById("siteContent").style.display = "block";
+			// Case 2: game is inside an iframe on the same page
+			var iframe = document.getElementById("gameFrame");
+			if (iframe) {
+				iframe.style.display = "none";
+			}
+			// redirect the parent page to homepage
+			window.location.href = "https://ruaangrobler.github.io/HappyTrailstest/";
 		}
 	});
-	</script>
+</script>
+
 
 </body>
 </html>
