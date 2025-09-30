@@ -262,5 +262,20 @@
 			}
 		});
 	</script>
+	<script>
+	window.addEventListener("message", function(event) {
+		if (event.data && event.data.type === "gameClosed") {
+			console.log("Game signaled close event");
+
+			// Example 1: redirect back to homepage
+			window.location.href = "/";
+
+			// Example 2 (if the game is in an iframe with id="gameFrame"):
+			// document.getElementById("gameFrame").style.display = "none";
+			// document.getElementById("siteContent").style.display = "block";
+		}
+	});
+	</script>
+
 </body>
 </html>
