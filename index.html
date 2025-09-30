@@ -263,29 +263,46 @@
 		});
 	</script>
 	<script>
+	let gameWindow = null;
+
+	document.getElementById("playBtn").addEventListener("click", () => {
+		const gameUrl = "game/index.html";
+
+		if (window.innerWidth < 768) {
+			// Mobile: full screen popup
+			gameWindow = window.open(gameUrl, "_blank");
+		} else {
+			// Desktop: 1:1.8 aspect ratio, 95% of screen height, centered
+			const height = Math.floor(window.innerHeight * 0.95);
+			const width = Math.floor(height / 1.8);
+			const left = Math.floor((window.screen.width - width) / 2);
+			const top = Math.floor((window.screen.height - height) / 2);
+
+			gameWindow = window.open(
+				gameUrl,
+				"_blank",
+				`width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=no`
+			);
+		}
+	});
+
+	// Listen for game close signal
 	window.addEventListener("message", function(event) {
 		if (event.data && event.data.type === "gameClosed") {
 			console.log("Game signaled close event");
 
-			// Case 1: this page *is* the popup window (has an opener)
-			if (window.opener && !window.opener.closed) {
-				// Tell the parent to refresh to homepage
-				window.opener.location.href = "https://ruaangrobler.github.io/HappyTrailstest/";
-				// Close this popup
-				window.close();
-				return;
+			// Close popup if it’s open
+			if (gameWindow && !gameWindow.closed) {
+				gameWindow.close();
+				gameWindow = null;
 			}
 
-			// Case 2: game is inside an iframe on the same page
-			var iframe = document.getElementById("gameFrame");
-			if (iframe) {
-				iframe.style.display = "none";
-			}
-			// redirect the parent page to homepage
+			// Always refresh homepage
 			window.location.href = "https://ruaangrobler.github.io/HappyTrailstest/";
 		}
 	});
 </script>
+
 
 
 </body>
