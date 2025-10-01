@@ -32,5 +32,32 @@
 		}
 	});
 </script>
+<script>
+	window.addEventListener("message", function(event) {
+		if (event.data && event.data.type === "copyCode") {
+			const code = event.data.code;
+
+			// Use Clipboard API
+			if (navigator.clipboard && navigator.clipboard.writeText) {
+				navigator.clipboard.writeText(code).then(() => {
+					console.log("Code copied to clipboard:", code);
+					alert("Code copied: " + code); // optional feedback
+				}).catch(err => {
+					console.error("Clipboard error:", err);
+				});
+			} else {
+				// Fallback (very old browsers)
+				const input = document.createElement("input");
+				input.value = code;
+				document.body.appendChild(input);
+				input.select();
+				document.execCommand("copy");
+				document.body.removeChild(input);
+				alert("Code copied: " + code);
+			}
+		}
+	});
+</script>
+
 </body>
 </html>
