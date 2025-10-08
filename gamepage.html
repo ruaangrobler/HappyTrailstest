@@ -5,48 +5,68 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Happy Trails – Game</title>
 <style>
-	html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; }
+	html, body {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
 	iframe {
-		position:absolute;
-		top:0; left:0;
-		width:100%;
-		height:100%;
-		border:none;
+		position: absolute;
+		top: 0; left: 0;
+		width: 100%;
+		height: 100%;
+		border: none;
 	}
 </style>
 </head>
 <body>
-<iframe id="gameFrame" src="game/index.html"></iframe>
+<iframe id="gameFrame" src=""></iframe>
 
 <script>
-	// Listen for Godot gameClosed signal
+	// --- Get URL query parameters (email, token, etc.) ---
+	function getQueryParams() {
+		const params = {};
+		const queryString = window.location.search.substring(1);
+		const pairs = queryString.split("&");
+		for (const pair of pairs) {
+			const [key, value] = pair.split("=");
+			if (key) params[decodeURIComponent(key)] = decodeURIComponent(value || "");
+		}
+		return params;
+	}
+
+	const params = getQueryParams();
+	console.log("Incoming query params:", params);
+
+	// --- Build iframe URL (pass to Godot game) ---
+	let gameUrl = "game/index.html";
+	const query = new URLSearchParams(params).toString();
+	if (query) gameUrl += "?" + query;
+
+	document.getElementById("gameFrame").src = gameUrl;
+
+	// --- Listen for game close signal from Godot ---
 	window.addEventListener("message", function(event){
 		if(event.data && event.data.type === "gameClosed"){
 			console.log("Game requested close.");
-			// notify opener
 			if(window.opener && !window.opener.closed){
 				window.opener.postMessage({ type: "gameClosed" }, "*");
 			}
-			// close self
 			window.close();
 		}
 	});
-</script>
-<script>
+
+	// --- Listen for copy-to-clipboard from Godot ---
 	window.addEventListener("message", function(event) {
 		if (event.data && event.data.type === "copyCode") {
 			const code = event.data.code;
-
-			// Use Clipboard API
 			if (navigator.clipboard && navigator.clipboard.writeText) {
-				navigator.clipboard.writeText(code).then(() => {
-					console.log("Code copied to clipboard:", code);
-					alert("Code copied: " + code); // optional feedback
-				}).catch(err => {
-					console.error("Clipboard error:", err);
-				});
+				navigator.clipboard.writeText(code)
+					.then(() => alert("Code copied: " + code))
+					.catch(err => console.error("Clipboard error:", err));
 			} else {
-				// Fallback (very old browsers)
 				const input = document.createElement("input");
 				input.value = code;
 				document.body.appendChild(input);

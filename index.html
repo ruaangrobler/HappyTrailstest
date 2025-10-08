@@ -116,7 +116,19 @@
 
 	<button id="loadUserBtn">Load User</button>
 	<button id="saveUserBtn">Save Changes</button>
-	<button id="playBtn">Play Game</button>
+	<button id="playBtn">Play Game Without logging in</button>
+	<button id="fakeAuthBtn">Fake Auth and Launch Game</button>
+
+<script>
+document.getElementById("fakeAuthBtn").addEventListener("click", () => {
+    const email = document.getElementById("email").value.trim();
+    const token = "testtoken123"; // Simulated WordPress token
+    const encodedEmail = encodeURIComponent(email);
+    const gameURL = `gamepage.html?email=${encodedEmail}&token=${token}`;
+    window.location.href = gameURL; // Direct redirect, just like WP would do
+});
+</script>
+
 
 	<script>
 		const firebaseUrl = "https://godotgamelinktest-default-rtdb.europe-west1.firebasedatabase.app/";
