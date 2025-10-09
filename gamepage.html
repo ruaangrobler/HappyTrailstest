@@ -22,6 +22,24 @@
 </style>
 </head>
 <body>
+	<script>
+	// Send close event to parent and close self
+	function closeGame() {
+		console.log("Game closing requested.");
+		if (window.opener && !window.opener.closed) {
+			window.opener.postMessage({ type: "gameClosed" }, "*");
+		}
+		window.close();
+	}
+
+	// Listen for close requests from Godot
+	window.addEventListener("message", function(event) {
+		if (event.data && event.data.type === "gameClosed") {
+			closeGame();
+		}
+	});
+</script>
+
 <iframe id="gameFrame" src=""></iframe>
 
 <script>
