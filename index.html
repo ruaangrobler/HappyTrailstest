@@ -121,13 +121,36 @@
 
 <script>
 document.getElementById("fakeAuthBtn").addEventListener("click", () => {
-    const email = document.getElementById("email").value.trim();
-    const token = "testtoken123"; // Simulated WordPress token
-    const encodedEmail = encodeURIComponent(email);
-    const gameURL = `gamepage.html?email=${encodedEmail}&token=${token}`;
-    window.location.href = gameURL; // Direct redirect, just like WP would do
+	const email = document.getElementById("email").value.trim();
+	const token = "testtoken123"; // Simulated WordPress token
+	const encodedEmail = encodeURIComponent(email);
+	const gameURL = `gamepage.html?email=${encodedEmail}&token=${token}`;
+
+	// --- Popup window settings (mobile-style portrait view) ---
+	const width = 500;   // adjust for your desired aspect
+	const height = 900;
+	const left = (screen.width / 2) - (width / 2);
+	const top = (screen.height / 2) - (height / 2);
+
+	// Open the game in a new popup window
+	const gameWindow = window.open(
+		gameURL,
+		"HappyTrailsGame",
+		`width=${width},height=${height},left=${left},top=${top},resizable=no,scrollbars=no,status=no`
+	);
+
+	// --- Listen for close messages from the game ---
+	window.addEventListener("message", function(event) {
+		if (event.data && event.data.type === "gameClosed") {
+			console.log("Game requested close.");
+			if (gameWindow && !gameWindow.closed) {
+				gameWindow.close();
+			}
+		}
+	});
 });
 </script>
+
 
 
 	<script>
