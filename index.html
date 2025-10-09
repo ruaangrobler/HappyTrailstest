@@ -212,20 +212,30 @@ document.getElementById("fakeAuthBtn").addEventListener("click", () => {
 
 		// --- Play Game ---
 		let gameWindow = null;
-		document.getElementById("playBtn").addEventListener("click", () => {
-			const gamePage = "gamepage.html";
+		document.getElementById("playBtn").addEventListener("click", function() {
+			const gameUrl = "game/index.html?email=a%40b&token=testtoken123"; // your dynamic URL here
 
-			if (window.innerWidth < 768) {
-				gameWindow = window.open(gamePage, "_blank");
-			} else {
-				const height = Math.floor(window.innerHeight * 0.95);
-				const width = Math.floor(height / 1.8);
-				const left = Math.floor((window.screen.width - width) / 2);
-				const top = Math.floor((window.screen.height - height) / 2);
+			// Open popup in portrait aspect ratio
+			const width = 500;  // adjust to match your game’s design
+			const height = 900; // taller than wide
+			const left = (screen.width / 2) - (width / 2);
+			const top = (screen.height / 2) - (height / 2);
 
-				gameWindow = window.open(gamePage, "_blank",
-					`width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=no`);
-			}
+			const win = window.open(
+				gameUrl,
+				"HappyTrailsGame",
+				`width=${width},height=${height},left=${left},top=${top},resizable=no,scrollbars=no,status=no`
+			);
+
+			// Optional: Listen for game close messages
+			window.addEventListener("message", function(event) {
+				if (event.data && event.data.type === "gameClosed") {
+					console.log("Game window reported close.");
+					if (win && !win.closed) {
+						win.close();
+					}
+				}
+			});
 		});
 
 		// --- Handle Game Close ---
