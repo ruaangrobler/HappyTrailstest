@@ -154,39 +154,66 @@ document.getElementById("fakeAuthBtn").addEventListener("click", () => {
 
 
 	<script>
+		const apiKey = "AIzaSyD5jutjuSD6ViglIS3PYxxYDtrLpxjS1lY";
 		const firebaseUrl = "https://godotgamelinktest-default-rtdb.europe-west1.firebasedatabase.app/";
-		let currentUsername = null;
+		let idToken = null;
 
+		// Authenticate anonymously
+		async function firebaseAuth() {
+			const res = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`, {
+				method: "POST",
+				body: JSON.stringify({ returnSecureToken: true }),
+				headers: { "Content-Type": "application/json" }
+			});
+			const data = await res.json();
+			idToken = data.idToken;
+			console.log("Authenticated with Firebase:", data.localId);
+		}
+
+		// Utility: encode email for Firebase keys
 		function sanitizeEmail(email) {
-			return email.replace(/\./g, ",")
-						.replace(/@/g, "_at_")
-						.replace(/\s+/g, "");
+			return email.replace(/\./g, ",").replace(/@/g, "_at_").replace(/\s+/g, "");
 		}
 
 		// --- Form Submission ---
 		document.getElementById("userForm").addEventListener("submit", async (e) => {
 			e.preventDefault();
+
+			// ensure we're authenticated
+			if (!idToken) await firebaseAuth();
+
 			const email = document.getElementById("email").value.trim().toLowerCase();
 			const handle = document.getElementById("handle").value.trim();
 			const name = document.getElementById("name").value.trim();
 			const surname = document.getElementById("surname").value.trim();
 			const locality = document.getElementById("locality").value;
 
-			const usersRes = await fetch(firebaseUrl + "users.json");
+			// 1️⃣ fetch user count
+			const usersRes = await fetch(`${firebaseUrl}users.json?auth=${idToken}`);
 			const usersData = await usersRes.json();
 			const nextId = usersData ? Object.keys(usersData).length + 1 : 1;
 			const username = (name.toLowerCase() + nextId);
 
-			const userObj = { email, handle, name, surname, code, locality, id: nextId };
+			// 2️⃣ create user object
+			const userObj = { email, handle, name, surname, locality, id: nextId };
 
-			await fetch(firebaseUrl + "users/" + username + ".json", { method: "PUT", body: JSON.stringify(userObj) });
+			// 3️⃣ authenticated writes
+			await fetch(`${firebaseUrl}users/${username}.json?auth=${idToken}`, {
+				method: "PUT",
+				body: JSON.stringify(userObj)
+			});
 
 			const emailKey = sanitizeEmail(email);
-			await fetch(firebaseUrl + "emails/" + emailKey + ".json", { method: "PUT", body: JSON.stringify(username) });
+			await fetch(`${firebaseUrl}emails/${emailKey}.json?auth=${idToken}`, {
+				method: "PUT",
+				body: JSON.stringify(username)
+			});
 
 			alert("User registered successfully as " + username);
 			document.getElementById("userForm").reset();
 		});
+
+
 
 		// --- Load User ---
 		document.getElementById("loadUserBtn").addEventListener("click", async () => {
