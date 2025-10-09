@@ -32,9 +32,6 @@
 			<input type="text" id="surname" required>
 		</label>
 
-		<label>Create your own password for the game (remember this, it's important)
-			<input type="text" id="code" required>
-		</label>
 
 		<label>Locality
       <select id="locality" required>
@@ -116,7 +113,6 @@
 
 	<button id="loadUserBtn">Load User</button>
 	<button id="saveUserBtn">Save Changes</button>
-	<button id="playBtn">Play Game Without logging in</button>
 	<button id="fakeAuthBtn">Login and Launch</button>
 
 <script>
@@ -170,7 +166,6 @@ document.getElementById("fakeAuthBtn").addEventListener("click", () => {
 			const handle = document.getElementById("handle").value.trim();
 			const name = document.getElementById("name").value.trim();
 			const surname = document.getElementById("surname").value.trim();
-			const code = document.getElementById("code").value.trim();
 			const locality = document.getElementById("locality").value;
 
 			const usersRes = await fetch(firebaseUrl + "users.json");
