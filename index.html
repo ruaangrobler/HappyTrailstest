@@ -14,10 +14,10 @@
 </head>
 <body>
 
-	<h2>Register / Edit Player</h2>
-	<h3>Instructions for testers:</h3>
+	<h2>DOWN - Register / Edit Player - CURRENTLY TESTING A NEW FLOW - PLEASE REACH OUT TO ME ON WHATSAPP BEFORE PLAYING</h2>
+	<!---- <h3>Instructions for testers:</h3>
 	<p>If new - Enter details and 'submit'. Then 'Load User' using same email, and click 'Login and Launch'</p>
-	<p>If returning, 'load' using same email, and click 'Login and Launch'</p>
+	<p>If returning, 'load' using same email, and click 'Login and Launch'</p>-->
 	<p>- and yes, this will all be automated in the final version :D</p>
 	<form id="userForm">
 		<label>Email
@@ -122,9 +122,9 @@
 <script>
 document.getElementById("fakeAuthBtn").addEventListener("click", () => {
 	const email = document.getElementById("email").value.trim();
-	const token = "testtoken123"; // Simulated WordPress token
+	const token = document.getElementById("tokenField")?.value
 	const encodedEmail = encodeURIComponent(email);
-	const gameURL = `gamepage.html?email=${encodedEmail}&token=${token}`;
+	const gameURL = `gamepage.html?user_token=${username}`;
 
 	// --- Popup window settings (mobile-style portrait view) ---
 	const width = 500;   // adjust for your desired aspect
