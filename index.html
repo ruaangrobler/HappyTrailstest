@@ -8,294 +8,168 @@
 		label { display: block; margin-top: 10px; }
 		input, select { width: 300px; padding: 5px; margin-top: 5px; }
 		button { margin-top: 15px; padding: 10px 20px; }
-		iframe { border: none; margin-top: 20px; width: 100%; }
-		#game-container { display: none; }
 	</style>
 </head>
 <body>
 
-	<h2>DOWN - Register / Edit Player - CURRENTLY TESTING A NEW FLOW - PLEASE REACH OUT TO ME ON WHATSAPP BEFORE PLAYING</h2>
-	<!---- <h3>Instructions for testers:</h3>
-	<p>If new - Enter details and 'submit'. Then 'Load User' using same email, and click 'Login and Launch'</p>
-	<p>If returning, 'load' using same email, and click 'Login and Launch'</p>-->
-	<p>- and yes, this will all be automated in the final version :D</p>
-	<form id="userForm">
-		<label>Email
-			<input type="email" id="email" required>
-		</label>
+<h2>Register / Edit Player</h2>
 
-		<label>Permanent Handle (screenname)
-			<input type="text" id="handle" required>
-		</label>
+<form id="userForm">
+	<label>Email <input type="email" id="email" required></label>
+	<label>Permanent Handle <input type="text" id="handle" required></label>
+	<label>Name <input type="text" id="name" required></label>
+	<label>Surname <input type="text" id="surname" required></label>
+	<label>Locality
+		<select id="locality" required>
+			<option value="">-- Select locality --</option>
+			<option value="Attard">Attard</option>
+			<option value="Birkirkara">Birkirkara</option>
+			<option value="Sliema">Sliema</option>
+			<option value="Valletta">Valletta</option>
+			<option value="Other">Other</option>
+		</select>
+	</label>
 
-		<label>Name
-			<input type="text" id="name" required>
-		</label>
+	<button type="submit">Submit</button>
+</form>
 
-		<label>Surname
-			<input type="text" id="surname" required>
-		</label>
-
-
-		<label>Locality
-      <select id="locality" required>
-        <option value="">-- Select locality --</option>
-        <option value="Not in Malta">Not in Malta</option>
-        <option value="Attard">Attard</option>
-        <option value="Balzan">Balzan</option>
-        <option value="Birgu (Vittoriosa)">Birgu (Vittoriosa)</option>
-        <option value="Birkirkara">Birkirkara</option>
-        <option value="Birżebbuġa">Birżebbuġa</option>
-        <option value="Cospicua (Bormla)">Cospicua (Bormla)</option>
-        <option value="Dingli">Dingli</option>
-        <option value="Fgura">Fgura</option>
-        <option value="Floriana">Floriana</option>
-        <option value="Fontana (Gozo)">Fontana (Gozo)</option>
-        <option value="Għajnsielem (Gozo)">Għajnsielem (Gozo)</option>
-        <option value="Għarb (Gozo)">Għarb (Gozo)</option>
-        <option value="Għargħur">Għargħur</option>
-        <option value="Għasri (Gozo)">Għasri (Gozo)</option>
-        <option value="Għaxaq">Għaxaq</option>
-        <option value="Gudja">Gudja</option>
-        <option value="Gżira">Gżira</option>
-        <option value="Ħamrun">Ħamrun</option>
-        <option value="Iklin">Iklin</option>
-        <option value="Isla (Senglea)">Isla (Senglea)</option>
-        <option value="Kalkara">Kalkara</option>
-        <option value="Kerċem (Gozo)">Kerċem (Gozo)</option>
-        <option value="Kirkop">Kirkop</option>
-        <option value="Lija">Lija</option>
-        <option value="Luqa">Luqa</option>
-        <option value="Marsa">Marsa</option>
-        <option value="Marsaskala">Marsaskala</option>
-        <option value="Marsaxlokk">Marsaxlokk</option>
-        <option value="Mdina">Mdina</option>
-        <option value="Mellieħa">Mellieħa</option>
-        <option value="Mġarr">Mġarr</option>
-        <option value="Mosta">Mosta</option>
-        <option value="Mqabba">Mqabba</option>
-        <option value="Msida">Msida</option>
-        <option value="Mtarfa">Mtarfa</option>
-        <option value="Munxar (Gozo)">Munxar (Gozo)</option>
-        <option value="Nadur (Gozo)">Nadur (Gozo)</option>
-        <option value="Naxxar">Naxxar</option>
-        <option value="Paola (Raħal Ġdid)">Paola (Raħal Ġdid)</option>
-        <option value="Pembroke">Pembroke</option>
-        <option value="Pietà">Pietà</option>
-        <option value="Qala (Gozo)">Qala (Gozo)</option>
-        <option value="Qormi">Qormi</option>
-        <option value="Qrendi">Qrendi</option>
-        <option value="Rabat (Malta)">Rabat (Malta)</option>
-        <option value="Rabat (Gozo)">Rabat (Gozo)</option>
-        <option value="Safi">Safi</option>
-        <option value="San Ġiljan (St. Julian's)">San Ġiljan (St. Julian's)</option>
-        <option value="San Ġwann">San Ġwann</option>
-        <option value="San Lawrenz (Gozo)">San Lawrenz (Gozo)</option>
-        <option value="San Pawl il-Baħar (St. Paul’s Bay)">San Pawl il-Baħar (St. Paul’s Bay)</option>
-        <option value="Sannat (Gozo)">Sannat (Gozo)</option>
-        <option value="Santa Luċija">Santa Luċija</option>
-        <option value="Santa Venera">Santa Venera</option>
-        <option value="Siġġiewi">Siġġiewi</option>
-        <option value="Sliema">Sliema</option>
-        <option value="Swieqi">Swieqi</option>
-        <option value="Ta’ Xbiex">Ta’ Xbiex</option>
-        <option value="Tarxien">Tarxien</option>
-        <option value="Valletta">Valletta</option>
-        <option value="Xagħra (Gozo)">Xagħra (Gozo)</option>
-        <option value="Xewkija (Gozo)">Xewkija (Gozo)</option>
-        <option value="Xgħajra">Xgħajra</option>
-        <option value="Żabbar">Żabbar</option>
-        <option value="Żebbuġ (Gozo)">Żebbuġ (Gozo)</option>
-        <option value="Żebbuġ (Malta)">Żebbuġ (Malta)</option>
-        <option value="Żejtun">Żejtun</option>
-        <option value="Żurrieq">Żurrieq</option>
-      </select>
-    </label>
-
-		<button type="submit">Submit</button>
-	</form>
-
-	<button id="loadUserBtn">Load User</button>
-	<button id="saveUserBtn">Save Changes</button>
-	<button id="fakeAuthBtn">Login and Launch</button>
+<button id="loadUserBtn">Load User</button>
+<button id="saveUserBtn">Save Changes</button>
+<button id="playBtn">Login and Launch</button>
 
 <script>
-document.getElementById("fakeAuthBtn").addEventListener("click", () => {
-	const email = document.getElementById("email").value.trim();
-	const token = document.getElementById("tokenField")?.value
-	const encodedEmail = encodeURIComponent(email);
-	const gameURL = `gamepage.html?user_token=${username}`;
+	const apiKey = "AIzaSyD5jutjuSD6ViglIS3PYxxYDtrLpxjS1lY";
+	const firebaseUrl = "https://godotgamelinktest-default-rtdb.europe-west1.firebasedatabase.app/";
+	let idToken = null;
+	let currentUsername = null;
 
-	// --- Popup window settings (mobile-style portrait view) ---
-	const width = 500;   // adjust for your desired aspect
-	const height = 900;
-	const left = (screen.width / 2) - (width / 2);
-	const top = (screen.height / 2) - (height / 2);
+	// 🔹 Firebase anonymous auth
+	async function firebaseAuth() {
+		const res = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`, {
+			method: "POST",
+			body: JSON.stringify({ returnSecureToken: true }),
+			headers: { "Content-Type": "application/json" }
+		});
+		const data = await res.json();
+		idToken = data.idToken;
+		console.log("Authenticated with Firebase:", data.localId);
+	}
 
-	// Open the game in a new popup window
-	const gameWindow = window.open(
-		gameURL,
-		"HappyTrailsGame",
-		`width=${width},height=${height},left=${left},top=${top},resizable=no,scrollbars=no,status=no`
-	);
+	function sanitizeEmail(email) {
+		return email.replace(/\./g, ",").replace(/@/g, "_at_").replace(/\s+/g, "");
+	}
 
-	// --- Listen for close messages from the game ---
-	window.addEventListener("message", function(event) {
-		if (event.data && event.data.type === "gameClosed") {
-			console.log("Game requested close.");
-			if (gameWindow && !gameWindow.closed) {
-				gameWindow.close();
-			}
-		}
+	function generateToken() {
+		return Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10);
+	}
+
+	// 🔹 Register new user
+	document.getElementById("userForm").addEventListener("submit", async (e) => {
+		e.preventDefault();
+		if (!idToken) await firebaseAuth();
+
+		const email = document.getElementById("email").value.trim().toLowerCase();
+		const handle = document.getElementById("handle").value.trim();
+		const name = document.getElementById("name").value.trim();
+		const surname = document.getElementById("surname").value.trim();
+		const locality = document.getElementById("locality").value;
+
+		// Generate unique token
+		const userToken = generateToken();
+		currentUsername = userToken;
+
+		const userObj = { email, handle, name, surname, locality };
+
+		// Save user under random token
+		await fetch(`${firebaseUrl}users/${userToken}.json?auth=${idToken}`, {
+			method: "PUT",
+			body: JSON.stringify(userObj)
+		});
+
+		// Map email -> token for lookups
+		const emailKey = sanitizeEmail(email);
+		await fetch(`${firebaseUrl}emails/${emailKey}.json?auth=${idToken}`, {
+			method: "PUT",
+			body: JSON.stringify(userToken)
+		});
+
+		alert("User registered successfully!");
 	});
-});
-</script>
 
+	// 🔹 Load existing user by email
+	document.getElementById("loadUserBtn").addEventListener("click", async () => {
+		const email = prompt("Enter the user's email:");
+		if (!email) return;
 
+		const emailKey = sanitizeEmail(email.toLowerCase());
+		const usernameRes = await fetch(`${firebaseUrl}emails/${emailKey}.json`);
+		const username = await usernameRes.json();
+		if (!username) { alert("User not found."); return; }
 
-	<script>
-		const apiKey = "AIzaSyD5jutjuSD6ViglIS3PYxxYDtrLpxjS1lY";
-		const firebaseUrl = "https://godotgamelinktest-default-rtdb.europe-west1.firebasedatabase.app/";
-		let idToken = null;
+		const userRes = await fetch(`${firebaseUrl}users/${username}.json`);
+		const userData = await userRes.json();
+		if (!userData) { alert("User data missing."); return; }
 
-		// Authenticate anonymously
-		async function firebaseAuth() {
-			const res = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`, {
-				method: "POST",
-				body: JSON.stringify({ returnSecureToken: true }),
-				headers: { "Content-Type": "application/json" }
-			});
-			const data = await res.json();
-			idToken = data.idToken;
-			console.log("Authenticated with Firebase:", data.localId);
-		}
+		document.getElementById("email").value = userData.email || "";
+		document.getElementById("handle").value = userData.handle || "";
+		document.getElementById("name").value = userData.name || "";
+		document.getElementById("surname").value = userData.surname || "";
+		document.getElementById("locality").value = userData.locality || "";
 
-		// Utility: encode email for Firebase keys
-		function sanitizeEmail(email) {
-			return email.replace(/\./g, ",").replace(/@/g, "_at_").replace(/\s+/g, "");
-		}
+		currentUsername = username;
+		alert("User loaded successfully.");
+	});
 
-		// --- Form Submission ---
-		document.getElementById("userForm").addEventListener("submit", async (e) => {
-			e.preventDefault();
+	// 🔹 Save changes
+	document.getElementById("saveUserBtn").addEventListener("click", async () => {
+		if (!currentUsername) return alert("Load a user first!");
 
-			// ensure we're authenticated
-			if (!idToken) await firebaseAuth();
+		const email = document.getElementById("email").value.trim().toLowerCase();
+		const handle = document.getElementById("handle").value.trim();
+		const name = document.getElementById("name").value.trim();
+		const surname = document.getElementById("surname").value.trim();
+		const locality = document.getElementById("locality").value;
+		const userObj = { email, handle, name, surname, locality };
 
-			const email = document.getElementById("email").value.trim().toLowerCase();
-			const handle = document.getElementById("handle").value.trim();
-			const name = document.getElementById("name").value.trim();
-			const surname = document.getElementById("surname").value.trim();
-			const locality = document.getElementById("locality").value;
-
-			// 1️⃣ fetch user count
-			const usersRes = await fetch(`${firebaseUrl}users.json?auth=${idToken}`);
-			const usersData = await usersRes.json();
-			const nextId = usersData ? Object.keys(usersData).length + 1 : 1;
-			const username = (name.toLowerCase() + nextId);
-
-			// 2️⃣ create user object
-			const userObj = { email, handle, name, surname, locality, id: nextId };
-
-			// 3️⃣ authenticated writes
-			await fetch(`${firebaseUrl}users/${username}.json?auth=${idToken}`, {
-				method: "PUT",
-				body: JSON.stringify(userObj)
-			});
-
-			const emailKey = sanitizeEmail(email);
-			await fetch(`${firebaseUrl}emails/${emailKey}.json?auth=${idToken}`, {
-				method: "PUT",
-				body: JSON.stringify(username)
-			});
-
-			alert("User registered successfully as " + username);
-			document.getElementById("userForm").reset();
+		await fetch(`${firebaseUrl}users/${currentUsername}.json?auth=${idToken}`, {
+			method: "PUT",
+			body: JSON.stringify(userObj)
 		});
 
-
-
-		// --- Load User ---
-		document.getElementById("loadUserBtn").addEventListener("click", async () => {
-			const email = prompt("Enter the user's email to load:");
-			if (!email) return;
-
-			const emailKey = sanitizeEmail(email.toLowerCase());
-			const usernameRes = await fetch(firebaseUrl + "emails/" + emailKey + ".json");
-			const username = await usernameRes.json();
-			if (!username) { alert("User not found"); return; }
-
-			const userRes = await fetch(firebaseUrl + "users/" + username + ".json");
-			const userData = await userRes.json();
-			if (!userData) { alert("User data not found"); return; }
-
-			document.getElementById("email").value = userData.email || "";
-			document.getElementById("handle").value = userData.handle || "";
-			document.getElementById("name").value = userData.name || "";
-			document.getElementById("surname").value = userData.surname || "";
-			document.getElementById("code").value = userData.code || "";
-			document.getElementById("locality").value = userData.locality || "";
-
-			currentUsername = username;
+		const emailKey = sanitizeEmail(email);
+		await fetch(`${firebaseUrl}emails/${emailKey}.json?auth=${idToken}`, {
+			method: "PUT",
+			body: JSON.stringify(currentUsername)
 		});
 
-		// --- Save Changes ---
-		document.getElementById("saveUserBtn").addEventListener("click", async () => {
-			if (!currentUsername) { alert("Please load a user first!"); return; }
+		alert("User updated successfully.");
+	});
 
-			const email = document.getElementById("email").value.trim().toLowerCase();
-			const handle = document.getElementById("handle").value.trim();
-			const name = document.getElementById("name").value.trim();
-			const surname = document.getElementById("surname").value.trim();
-			const code = document.getElementById("code").value.trim();
-			const locality = document.getElementById("locality").value;
+	// 🔹 Play Game
+	document.getElementById("playBtn").addEventListener("click", () => {
+		if (!currentUsername) return alert("Please register or load a user first!");
 
-			const userObj = { email, handle, name, surname, code, locality };
+		const gameURL = `gamepage.html?user_token=${encodeURIComponent(currentUsername)}`;
+		console.log("Opening:", gameURL);
 
-			await fetch(firebaseUrl + "users/" + currentUsername + ".json", { method: "PUT", body: JSON.stringify(userObj) });
-			const emailKey = sanitizeEmail(email);
-			await fetch(firebaseUrl + "emails/" + emailKey + ".json", { method: "PUT", body: JSON.stringify(currentUsername) });
+		const width = 500, height = 900;
+		const left = (screen.width / 2) - (width / 2);
+		const top = (screen.height / 2) - (height / 2);
 
-			alert("User profile updated successfully.");
-		});
+		const gameWindow = window.open(
+			gameURL,
+			"HappyTrailsGame",
+			`width=${width},height=${height},left=${left},top=${top},resizable=no,scrollbars=no,status=no`
+		);
 
-		// --- Play Game ---
-		let gameWindow = null;
-		document.getElementById("playBtn").addEventListener("click", function() {
-			const gameUrl = "game/index.html?email=a%40b&token=testtoken123"; // your dynamic URL here
-
-			// Open popup in portrait aspect ratio
-			const width = 500;  // adjust to match your game’s design
-			const height = 900; // taller than wide
-			const left = (screen.width / 2) - (width / 2);
-			const top = (screen.height / 2) - (height / 2);
-
-			const win = window.open(
-				gameUrl,
-				"HappyTrailsGame",
-				`width=${width},height=${height},left=${left},top=${top},resizable=no,scrollbars=no,status=no`
-			);
-
-			// Optional: Listen for game close messages
-			window.addEventListener("message", function(event) {
-				if (event.data && event.data.type === "gameClosed") {
-					console.log("Game window reported close.");
-					if (win && !win.closed) {
-						win.close();
-					}
-				}
-			});
-		});
-
-		// --- Handle Game Close ---
 		window.addEventListener("message", (event) => {
 			if (event.data && event.data.type === "gameClosed") {
-				console.log("Game closed signal received.");
 				if (gameWindow && !gameWindow.closed) gameWindow.close();
 				window.location.href = "https://ruaangrobler.github.io/HappyTrailstest/";
 			}
 		});
-	</script>
+	});
+</script>
 
 </body>
 </html>
